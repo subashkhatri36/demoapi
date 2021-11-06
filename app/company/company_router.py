@@ -14,10 +14,19 @@ router=APIRouter(
 get_db=database.get_db
 
 
+# 
 
-@router.post('/', status_code=status.HTTP_201_CREATED,)
-def create(request: company_schemas.Company, db: Session = Depends(get_db),current_user: account_schemas.User = Depends(oauth2.get_current_user)):
+
+
+@router.post('/', )
+def create(request: company_schemas.Company, db: Session = Depends(get_db),current_user: account_schemas.MainUser = Depends(oauth2.get_current_user)):
     return company_repo.create(request, db)
+
+@router.get('/{id}')
+def get_company(id:int,db: Session = Depends(get_db)):   
+    response={'detail':{'status':'true','data': company_repo.show(id,db)}}
+    return response
+
 
 
 

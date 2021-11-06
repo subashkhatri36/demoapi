@@ -13,3 +13,14 @@ def create(request: company_schemas.Company,db: Session):
     db.commit()
     db.refresh(new_company)
     return new_company
+
+
+def show(id:int,db:Session):
+    dbcompnay = db.query(company_models.Company).filter(company_models.Company.id == id).first()
+    if not dbcompnay:
+        data={'status':'false','data':f"COmpany with the id {id} is not available"}
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=data)
+    # userresponse={'email':dbuser.email,'id':dbuser.id,'fullname':dbuser.fullname,'profile':dbuser.profile,'last_login':dbuser.last_login,'is_superuser':dbuser.is_superuser,'is_staff':dbuser.is_staff,'date_joined':dbuser.date_joined,"is_active":new_user.is_active}
+    response={'detail':{'status':'true','data': dbcompnay}}
+    return response

@@ -1,9 +1,9 @@
-from fastapi import APIRouter,Depends,status,HTTPException
+from fastapi import APIRouter,Depends,status,HTTPException, File, Form, UploadFile
 from fastapi.responses import RedirectResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from app.config import database
 from sqlalchemy.orm import Session
-from  app.account import account_repo,account_schemas,account_models
+from app.account import account_repo,account_schemas,account_models
 from app.account import token
 from app.account.hashing import Hash
 
@@ -18,7 +18,7 @@ router=APIRouter(
 get_db=database.get_db
 
 
-@router.post('/create',)
+@router.post('/create',status_code=status.HTTP_201_CREATED)
 async def create_user(request:account_schemas.User,db: Session=Depends(get_db)):
     return account_repo.create(request,db)
 
@@ -31,7 +31,7 @@ async def create_user(request:account_schemas.User,db: Session=Depends(get_db)):
 
 
 
-@router.post('/',)
+@router.post('/login',)
 async def login(request:OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):
     user_info = db.query(account_models.User).filter(account_models.User.email == request.username).first()
     if not user_info:

@@ -1,6 +1,5 @@
 from sqlalchemy import Column, Integer, String, Date,Boolean
 from app.config.database import Base
-from sqlalchemy.orm import relationship
 
 
 
@@ -18,5 +17,5 @@ class User(Base):
     is_staff=Column(Boolean)
     is_active=Column(Boolean)
     date_joined=Column(Date)
-    usercompany=relationship('Company', back_populates="userlist")
+
     

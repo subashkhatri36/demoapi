@@ -4,6 +4,7 @@ from datetime import datetime
 
 class CompnayBase(BaseModel):
     company_name:str
+    user_id:int
     company_email:str
     company_contact :str
     company_address:str
@@ -21,7 +22,7 @@ class Company(CompnayBase):
         orm_mode=True
 
 
-class showCompany():
+class ShowCompany(BaseModel):
     company_name:str
     company_email:str
     company_contact :str
@@ -30,9 +31,13 @@ class showCompany():
     company_pan :str
     comapny_description:str
     owner_citizenship:str  
+    user_id:int
     branch:bool
     active:bool
     create_at:datetime
     updated_at:datetime
+
+    class Config():
+       orm_mode = True
 
    

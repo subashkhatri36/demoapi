@@ -2,6 +2,7 @@ from typing import List, Optional
 from pydantic import BaseModel
 from datetime import datetime
 
+
 class User(BaseModel):
     fullname:str
     email:str
@@ -12,6 +13,12 @@ class User(BaseModel):
     is_staff:bool
     date_joined:datetime
     is_active:bool
+
+class MainUser(BaseModel):
+    fullname:str
+    email:str
+    password:str
+   
    
 
 class ShowUser(BaseModel):   
@@ -22,9 +29,14 @@ class ShowUser(BaseModel):
     is_superuser:bool
     is_staff:bool
     date_joined:datetime
-    is_active:bool   
+    is_active:bool
+
     class Config():
         orm_mode = True
+
+
+
+        
 
 class Login(BaseModel):
     username: str
